@@ -26,7 +26,21 @@ const playerSlice = createSlice({
     play: (state) => {
       state.isPlaying = true;
     },
+    prev: (state) => {
+      const currentIndex = songs.findIndex(
+        (song) => song.title === state.currentSong.title
+      );
+      const prevIndex = currentIndex > 0 ? currentIndex - 1 : songs.length - 1;
+      state.currentSong = songs[prevIndex];
+    },
+    next: (state) => {
+      const currentIndex = songs.findIndex(
+        (song) => song.title === state.currentSong.title
+      );
+      const nextIndex = currentIndex < songs.length - 1 ? currentIndex + 1 : 0;
+      state.currentSong = songs[nextIndex];
+    },
   },
 });
 export default playerSlice.reducer;
-export const { setCurrentSong, pause, play  } = playerSlice.actions;
+export const { setCurrentSong, pause, play, prev, next } = playerSlice.actions;
